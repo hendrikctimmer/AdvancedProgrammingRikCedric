@@ -1,22 +1,24 @@
-/**
- * Created by rik on 7-9-17.
- */
+
+
 public class TokenImp implements Token {
+
+    final int   NUMBER_TYPE = 1,
+                OPERATOR_TYPE = 2,
+                PARENTHESIS_TYPE = 3;
+
+    String tokenValue;
+    int tokenType;
+    int tokenPrecedence;
 
     TokenImp(){}
 
-    @Override
     public String getValue() {
-        return null;
+        return tokenValue;
     }
 
-    @Override
-    public int getType() {
-        return 0;
-    }
+    public int getType() { return tokenType; }
 
-    @Override
     public int getPrecedence() {
-        return 0;
+        return tokenPrecedence;
     }
 }

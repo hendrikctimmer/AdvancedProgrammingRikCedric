@@ -1,25 +1,65 @@
-import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
+import java.io.PrintStream;
 
 public class Main implements CalculatorInterface {
 
-    Scanner tokenScanner;
+    Scanner in;
+    PrintStream out;
+    String operatorTokens = "+-*/^";
 
     Main(){
 
-        tokenScanner = new Scanner(System.in);
+        in = new Scanner(System.in);
+        out = new PrintStream(System.out);
 
+    }
+
+    boolean tokenIsDouble(String token){
+        Scanner tokenScanner = new Scanner(token);
+        if (tokenScanner.hasNextDouble()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    boolean tokenIsOperator(String token){
+        Scanner tokenScanner = new Scanner(token);
+        if (operatorTokens.contains(tokenScanner.next())){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    boolean tokenIsParenthesis(String token){
+        Scanner tokenScanner = new Scanner(token);
+        if (tokenScanner.next().equals('(' | ')')){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public TokenList readTokens(String input) {
 
-        while (tokenScanner.hasNext()){
-        		
-        	
+        TokenListImp result = new TokenListImp();
 
+        while (in.hasNext()){
 
+            TokenImp token = new TokenImp();
+            String tokenString = in.next();
+            token.tokenValue = tokenString;
+            result.add(token);
+            if( tokenIsDouble(tokenString)){
+                token.tokenType = 1;
+            } else if (tokenIsOperator(tokenString)){
+                token.tokenType = 2;
+            }else if (tokenIsParenthesis(tokenString)){
+                token.tokenType = 3;
+            } else {
+                out.printf("Error: invalid input");
+            }
         }
 
         return null;

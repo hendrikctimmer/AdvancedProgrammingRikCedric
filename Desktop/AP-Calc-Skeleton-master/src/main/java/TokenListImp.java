@@ -15,7 +15,6 @@ public class TokenListImp implements TokenList {
 
     }
 
-    @Override
     public void add(Token token) {
 
 
@@ -25,7 +24,6 @@ public class TokenListImp implements TokenList {
 
     }
 
-    @Override
     public void remove(int index) {
 
         if (index >= 0) {
@@ -36,20 +34,17 @@ public class TokenListImp implements TokenList {
 
     }
 
-    @Override
     public void set(int index, Token token) {
 
         tokenList[index] = token;
 
     }
 
-    @Override
     public Token get(int index) {
 
         return tokenList[index];
     }
 
-    @Override
     public int size() {
         return numberOfTokens;
     }
