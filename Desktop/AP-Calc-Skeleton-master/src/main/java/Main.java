@@ -5,9 +5,22 @@ import java.util.Scanner;
 
 public class Main implements CalculatorInterface {
 
+    Scanner tokenScanner;
+
+    Main(){
+
+        tokenScanner = new Scanner(System.in);
+
+    }
 
     public TokenList readTokens(String input) {
-        // TODO: Implement this
+
+        while (tokenScanner.hasNext()){
+
+
+
+        }
+
         return null;
     }
 

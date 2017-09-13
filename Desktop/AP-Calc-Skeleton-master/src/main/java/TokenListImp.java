@@ -2,8 +2,21 @@
  * Created by rik on 7-9-17.
  */
 public class TokenListImp implements TokenList {
+
+    Token previousToken;
+    Token currentToken;
+    Token nextToken;
+
+    TokenListImp(){
+
+
+
+    }
+
     @Override
     public void add(Token token) {
+        currentToken = token;
+        
 
     }
 
@@ -25,5 +38,10 @@ public class TokenListImp implements TokenList {
     @Override
     public int size() {
         return 0;
+    }
+
+    public void readTokens(){
+
+
     }
 }
