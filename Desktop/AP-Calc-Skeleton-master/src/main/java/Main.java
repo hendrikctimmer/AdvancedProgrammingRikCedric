@@ -16,7 +16,8 @@ public class Main implements CalculatorInterface {
     public TokenList readTokens(String input) {
 
         while (tokenScanner.hasNext()){
-
+        		
+        	// Suck a dick
 
 
         }
