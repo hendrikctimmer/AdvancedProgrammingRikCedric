@@ -2,6 +2,9 @@
  * Created by rik on 7-9-17.
  */
 public class TokenImp implements Token {
+
+    TokenImp(){}
+
     @Override
     public String getValue() {
         return null;

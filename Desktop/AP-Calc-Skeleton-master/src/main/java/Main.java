@@ -17,7 +17,7 @@ public class Main implements CalculatorInterface {
 
         while (tokenScanner.hasNext()){
         		
-        	// Suck a dick my faggot friend
+        	
 
 
         }

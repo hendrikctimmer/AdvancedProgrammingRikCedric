@@ -3,21 +3,24 @@
  */
 public class TokenListImp implements TokenList {
 
-    Token previousToken;
-    Token currentToken;
-    Token nextToken;
-
+   Token[] tokenList;
+   int numberOfTokens;
+   Token currentToken;
 
 
     TokenListImp(){
 
-
+    numberOfTokens = 0;
+    tokenList = new Token[1024];
 
     }
 
     @Override
     public void add(Token token) {
-        currentToken = token;
+
+
+        tokenList[numberOfTokens] = token;
+        numberOfTokens ++;
         
 
     }
@@ -25,25 +28,30 @@ public class TokenListImp implements TokenList {
     @Override
     public void remove(int index) {
 
+        if (index >= 0) {
+            tokenList[index] = null;
+        } else {
+            throw new ArrayIndexOutOfBoundsException(index);
+        }
+
     }
 
     @Override
     public void set(int index, Token token) {
 
+        tokenList[index] = token;
+
     }
 
     @Override
     public Token get(int index) {
-        return null;
+
+        return tokenList[index];
     }
 
     @Override
     public int size() {
-        return 0;
+        return numberOfTokens;
     }
 
-    public void readTokens(){
-
-
-    }
 }
