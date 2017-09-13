@@ -7,6 +7,8 @@ public class TokenListImp implements TokenList {
     Token currentToken;
     Token nextToken;
 
+
+
     TokenListImp(){
 
 
