@@ -5,7 +5,7 @@ public class Main implements CalculatorInterface {
 
     Scanner in;
     PrintStream out;
-    String operatorTokens = "+-*/^";
+    static final String OPERATOR_TOKENS = "+-*/^";
 
     Main(){
 
@@ -25,7 +25,7 @@ public class Main implements CalculatorInterface {
 
     boolean tokenIsOperator(String token){
         Scanner tokenScanner = new Scanner(token);
-        if (operatorTokens.contains(tokenScanner.next())){
+        if (OPERATOR_TOKENS.contains(tokenScanner.next())){
             return true;
         } else {
             return false;
