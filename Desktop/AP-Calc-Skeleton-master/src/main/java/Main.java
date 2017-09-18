@@ -7,7 +7,7 @@ public class Main implements CalculatorInterface {
     PrintStream out;
     static final String OPERATOR_TOKENS = "+-*/^";
     
-    // Do you work motherfucker?
+    // Do you work motherfucker? yes
 
     Main(){
 
