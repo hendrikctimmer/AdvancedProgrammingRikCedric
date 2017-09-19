@@ -44,12 +44,13 @@ public class Main implements CalculatorInterface {
     		} else if (tokenIsParenthesis(token)) {
     			result.add(parseParenthesis(token));
     		} else {
-    			System.out.println("Error in identifying token.");
+    			out.println("Error in identifying token.");
     		}
         }
         for (int i = 0; i < result.size(); i++)
-                {out.printf("%s ", result.get(i).getType());}
-
+                out.printf("%s ", result.get(i).getValue());
+        out.println();
+        
         return result;
     }
     
@@ -59,6 +60,7 @@ public class Main implements CalculatorInterface {
     
     public Token parseOperator(String token) {
     	int precedence = 0;
+    	
     	if (token.charAt(0) == OPERATOR_TOKENS.charAt(0) || token.charAt(0) == OPERATOR_TOKENS.charAt(1)) {
     		precedence = 1;
     	}
@@ -73,8 +75,57 @@ public class Main implements CalculatorInterface {
     } 
 
     public Double rpn(TokenList tokens) {
-        // TODO: Implement this
-        return null;
+    	DoubleStack stack = new DoubleStackImp();
+    	Double result = null;
+    	
+        for (int i = 0; i < tokens.size(); i++) {
+        	if (tokens.get(i).getType() == 1) {
+        		stack.push(Double.parseDouble(tokens.get(i).getValue()));
+        	}
+        	else if (tokens.get(i).getType() == 2) {
+        		performOperation(tokens.get(i), stack);
+        	}
+        }
+        if (stack.size() == 1) {
+        	result = stack.pop();
+        }
+        else {
+        	out.println("Error in rpn.");
+        }
+        
+        out.printf("%s ", result);
+        
+        return result;
+    }
+    
+    private void performOperation(Token operator, DoubleStack stack) {
+    	double a = stack.pop();
+    	double b = stack.pop();
+    	
+    	if (operator.equals("+")) {
+    		stack.push(b + a);
+    	}
+    	else if (operator.equals("-")) {
+    		stack.push(b - a);
+    	}
+    	else if (operator.equals("*")) {
+    		stack.push(b * a);
+    	}
+    	else if (operator.equals("/")) {
+    		stack.push(b / a);
+    	}
+    	else if (operator.equals("^")) {
+    		stack.push(power(a,b));
+    	}
+    }
+    
+    private double power(double a, double b) {
+    	double result = 1;
+    	
+    	for (int i = 0; i < a; i++){
+    		result *= b;
+    	}
+    	return result;
     }
 
     public TokenList shuntingYard(TokenList tokens) {
@@ -83,12 +134,11 @@ public class Main implements CalculatorInterface {
     }
 
     private void start() {
-        // Create a scanner on System.in
-        while (in.hasNextLine()) {
+        /*while (in.hasNextLine()) {
             readTokens(in.nextLine());
-        }
-
-        // While there is input, read line and parse it.
+        }*/
+    	String test = "3 2 +";
+    	rpn(readTokens(test));
     }
 
     public static void main(String[] argv) {
