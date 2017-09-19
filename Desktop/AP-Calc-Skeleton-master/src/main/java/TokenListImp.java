@@ -1,6 +1,3 @@
-/**
- * Created by rik on 7-9-17.
- */
 public class TokenListImp implements TokenList {
 	
 	static final int MAX_NUMBER_OF_TOKENS = 1024;
@@ -8,7 +5,7 @@ public class TokenListImp implements TokenList {
 	Token[] tokenList;
 	int numberOfTokens;
 	
-	Token currentToken;
+	TokenImp currentToken;
 
     public TokenListImp() {
     	tokenList = new Token[MAX_NUMBER_OF_TOKENS];

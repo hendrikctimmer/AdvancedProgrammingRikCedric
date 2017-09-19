@@ -1,5 +1,3 @@
-
-
 public class TokenImp implements Token {
 
     final int   NUMBER_TYPE = 1,

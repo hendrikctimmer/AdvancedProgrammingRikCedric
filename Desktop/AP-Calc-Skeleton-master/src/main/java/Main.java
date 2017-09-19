@@ -47,10 +47,11 @@ public class Main implements CalculatorInterface {
 
         Scanner inputScanner = new Scanner(input);
         TokenListImp result = new TokenListImp();
-        TokenImp token = new TokenImp();
+
 
         while (inputScanner.hasNext()){
 
+            TokenImp token = new TokenImp();
             String tokenString = inputScanner.next();
             token.tokenValue = tokenString;
             result.add(token);
@@ -67,8 +68,8 @@ public class Main implements CalculatorInterface {
                 out.printf("Error: Invalid Input");
             }
         }
-
-        out.printf("%d ", result.numberOfTokens);
+        for (int i = 0; i < result.numberOfTokens; i++)
+                {out.printf("%s ", result.tokenList[i].getType());}
 
         return result;
     }
@@ -88,8 +89,6 @@ public class Main implements CalculatorInterface {
         while (in.hasNextLine()) {
             readTokens(in.nextLine());
         }
-        1 2 3
-        4 5 6
 
         // While there is input, read line and parse it.
     }
