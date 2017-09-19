@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Scanner;
 import java.io.PrintStream;
 
@@ -6,6 +7,7 @@ public class Main implements CalculatorInterface {
     Scanner in;
     PrintStream out;
     static final String OPERATOR_TOKENS = "+-*/^";
+    static final String PARENTHESES = "()";
 
     Main() {
 
@@ -34,7 +36,7 @@ public class Main implements CalculatorInterface {
 
     boolean tokenIsParenthesis(String token){
         Scanner tokenScanner = new Scanner(token);
-        if (tokenScanner.next().equals('(' | ')')){
+        if (PARENTHESES.contains(tokenScanner.next())){
             return true;
         } else {
             return false;
@@ -44,6 +46,8 @@ public class Main implements CalculatorInterface {
     public TokenList readTokens(String input) {
 
         TokenListImp result = new TokenListImp();
+        Scanner lineScanner = new Scanner(input);
+
 
         while (in.hasNext()){
 
@@ -60,9 +64,14 @@ public class Main implements CalculatorInterface {
             } else {
                 out.printf("Error: invalid input");
             }
+
         }
 
-        return null;
+        for (int i = 0; i < result.tokenList.length; i ++){
+            out.printf("%s ", result.tokenList[i]);
+        }
+
+        return result;
     }
 
     public Double rpn(TokenList tokens) {
@@ -77,7 +86,9 @@ public class Main implements CalculatorInterface {
 
     private void start() {
         // Create a scanner on System.in
-        
+            while (in.hasNext()){
+                readTokens(in.nextLine());
+            }
         // While there is input, read line and parse it.
     }
 
