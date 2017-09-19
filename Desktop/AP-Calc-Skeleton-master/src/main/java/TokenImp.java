@@ -1,28 +1,31 @@
+
 public class TokenImp implements Token {
 
-    final int   NUMBER_TYPE = 1,
-                OPERATOR_TYPE = 2,
-                PARENTHESIS_TYPE = 3;
-
-    String tokenValue;
-    int tokenType;
-    int tokenPrecedence;
-
-    TokenImp() {
-    	tokenValue = null;
-		tokenType = 0;
-		tokenPrecedence = 0;
-    }
+	String value;
+	int type;
+	int precedence;
+	
+	public TokenImp() {
+		value = null;
+		type = 0;
+		precedence = 0;
+	}
+    
+    public TokenImp(String value, int type, int precedence) {
+		this.value = value;
+		this.type = type;
+		this.precedence = precedence;
+	}
 
     public String getValue() {
-        return tokenValue;
+        return value;
     }
 
     public int getType() { 
-    	return tokenType; 
+    	return type; 
     }
 
     public int getPrecedence() {
-        return tokenPrecedence;
+        return precedence;
     }
 }

@@ -6,8 +6,8 @@ public class Main implements CalculatorInterface {
 
     Scanner in;
     PrintStream out;
+    
     static final String OPERATOR_TOKENS = "+-*/^";
-    static final String PARENTHESES = "()";
 
     Main() {
 
@@ -16,63 +16,61 @@ public class Main implements CalculatorInterface {
 
     }
 
-    boolean tokenIsDouble(String token){
-        Scanner tokenScanner = new Scanner(token);
-        if (tokenScanner.hasNextDouble()){
-            return true;
-        } else {
-            return false;
-        }
+    boolean tokenIsDouble(String token) {
+        return new Scanner(token).hasNextDouble();       
     }
 
-    boolean tokenIsOperator(String token){
-        Scanner tokenScanner = new Scanner(token);
-        if (OPERATOR_TOKENS.contains(tokenScanner.next())){
-            return true;
-        } else {
-            return false;
-        }
+    boolean tokenIsOperator(String token) {
+        return OPERATOR_TOKENS.contains(token);
     }
 
-    boolean tokenIsParenthesis(String token){
-        Scanner tokenScanner = new Scanner(token);
-        if (PARENTHESES.contains(tokenScanner.next())){
-            return true;
-        } else {
-            return false;
-        }
+    boolean tokenIsParenthesis(String token) {
+    	return token.equals("(") || token.equals(")");
     }
 
     public TokenList readTokens(String input) {
 
-        Scanner inputScanner = new Scanner(input);
-        TokenListImp result = new TokenListImp();
+        Scanner in = new Scanner(input);
+        TokenList result = new TokenListImp();
 
+        while (in.hasNext()){
 
-        while (inputScanner.hasNext()){
-
-            TokenImp token = new TokenImp();
-            String tokenString = inputScanner.next();
-            token.tokenValue = tokenString;
-            result.add(token);
-            if( tokenIsDouble(tokenString)){
-                token.tokenType = 1;
-                out.printf("%s ", token.tokenValue);
-            } else if (tokenIsOperator(tokenString)){
-                token.tokenType = 2;
-                out.printf("%s ", token.tokenValue);
-            }else if (tokenIsParenthesis(tokenString)){
-                token.tokenType = 3;
-                out.printf("%s ", token.tokenValue);
-            } else {
-                out.printf("Error: Invalid Input");
-            }
+        	String token = in.next();
+    		
+    		if (tokenIsDouble(token)) {
+    			result.add(parseNumber(token));
+    		} else if (tokenIsOperator(token)) {
+    			result.add(parseOperator(token));
+    		} else if (tokenIsParenthesis(token)) {
+    			result.add(parseParenthesis(token));
+    		} else {
+    			System.out.println("Error in identifying token.");
+    		}
         }
-        for (int i = 0; i < result.numberOfTokens; i++)
-                {out.printf("%s ", result.tokenList[i].getType());}
+        for (int i = 0; i < result.size(); i++)
+                {out.printf("%s ", result.get(i).getType());}
 
         return result;
     }
+    
+    public Token parseNumber(String token) {
+    	return  new TokenImp(token, 1, -1);
+    }
+    
+    public Token parseOperator(String token) {
+    	int precedence = 0;
+    	if (token.charAt(0) == OPERATOR_TOKENS.charAt(0) || token.charAt(0) == OPERATOR_TOKENS.charAt(1)) {
+    		precedence = 1;
+    	}
+    	else if (token.charAt(0) == OPERATOR_TOKENS.charAt(2) || token.charAt(0) == OPERATOR_TOKENS.charAt(3) || token.charAt(0) == OPERATOR_TOKENS.charAt(4)) {
+    		precedence = 2;
+    	}
+    	return  new TokenImp(token, 2, precedence);   		
+    }
+    
+    public Token parseParenthesis(String token) {
+    	return  new TokenImp(token, 3, 3);
+    } 
 
     public Double rpn(TokenList tokens) {
         // TODO: Implement this
