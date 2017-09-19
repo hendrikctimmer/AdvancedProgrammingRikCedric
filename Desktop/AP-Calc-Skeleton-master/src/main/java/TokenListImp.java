@@ -10,7 +10,6 @@ public class TokenListImp implements TokenList {
 	
 	Token currentToken;
 
-
     public TokenListImp() {
     	tokenList = new Token[MAX_NUMBER_OF_TOKENS];
     	numberOfTokens = 0;

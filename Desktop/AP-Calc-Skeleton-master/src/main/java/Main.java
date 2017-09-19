@@ -1,4 +1,4 @@
-import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.io.PrintStream;
 
@@ -45,31 +45,30 @@ public class Main implements CalculatorInterface {
 
     public TokenList readTokens(String input) {
 
+        Scanner inputScanner = new Scanner(input);
         TokenListImp result = new TokenListImp();
-        Scanner lineScanner = new Scanner(input);
+        TokenImp token = new TokenImp();
 
+        while (inputScanner.hasNext()){
 
-        while (in.hasNext()){
-
-            TokenImp token = new TokenImp();
-            String tokenString = in.next();
+            String tokenString = inputScanner.next();
             token.tokenValue = tokenString;
             result.add(token);
             if( tokenIsDouble(tokenString)){
                 token.tokenType = 1;
+                out.printf("%s ", token.tokenValue);
             } else if (tokenIsOperator(tokenString)){
                 token.tokenType = 2;
+                out.printf("%s ", token.tokenValue);
             }else if (tokenIsParenthesis(tokenString)){
                 token.tokenType = 3;
+                out.printf("%s ", token.tokenValue);
             } else {
-                out.printf("Error: invalid input");
+                out.printf("Error: Invalid Input");
             }
-
         }
 
-        for (int i = 0; i < result.tokenList.length; i ++){
-            out.printf("%s ", result.tokenList[i]);
-        }
+        out.printf("%d ", result.numberOfTokens);
 
         return result;
     }
@@ -86,9 +85,12 @@ public class Main implements CalculatorInterface {
 
     private void start() {
         // Create a scanner on System.in
-            while (in.hasNext()){
-                readTokens(in.nextLine());
-            }
+        while (in.hasNextLine()) {
+            readTokens(in.nextLine());
+        }
+        1 2 3
+        4 5 6
+
         // While there is input, read line and parse it.
     }
 
