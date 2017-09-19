@@ -2,23 +2,40 @@
  * Created by rik on 7-9-17.
  */
 public class DoubleStackImp implements DoubleStack {
-    @Override
-    public void push(Double element) {
+	
+	static final int MAX_NUMBER_OF_ELEMENTS = 1000;
+	Double[] stack;
+	int numberOfElements;
+	
+	DoubleStackImp() {
+		stack = new Double[MAX_NUMBER_OF_ELEMENTS];
+		numberOfElements = 0;
+	}
 
-    }
+	public void push(Double element) {
+		if (numberOfElements >= 1) {			
+			for (int i = numberOfElements - 1; i >= 0; i--) {
+				stack[i+1] = stack[i];
+			}
+		}
+		stack[0] = element;
+		numberOfElements++;
+	}
 
-    @Override
-    public Double pop() {
-        return null;
-    }
+	public Double pop() {
+		Double popElement = stack[0];
+		numberOfElements -= 1;
+		for (int i = 0; i < numberOfElements; i++) {
+			stack[i] = stack[i + 1];
+		}
+		return popElement;
+	}
 
-    @Override
-    public Double top() {
-        return null;
-    }
+	public Double top() {
+		return stack[0];
+	}
 
-    @Override
-    public int size() {
-        return 0;
-    }
+	public int size() {
+		return numberOfElements;
+	}
 }

@@ -10,13 +10,19 @@ public class TokenImp implements Token {
     int tokenType;
     int tokenPrecedence;
 
-    TokenImp(){}
+    TokenImp() {
+    	tokenValue = null;
+		tokenType = 0;
+		tokenPrecedence = 0;
+    }
 
     public String getValue() {
         return tokenValue;
     }
 
-    public int getType() { return tokenType; }
+    public int getType() { 
+    	return tokenType; 
+    }
 
     public int getPrecedence() {
         return tokenPrecedence;
