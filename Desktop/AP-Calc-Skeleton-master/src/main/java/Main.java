@@ -64,14 +64,17 @@ public class Main implements CalculatorInterface {
     	if (token.charAt(0) == OPERATOR_TOKENS.charAt(0) || token.charAt(0) == OPERATOR_TOKENS.charAt(1)) {
     		precedence = 1;
     	}
-    	else if (token.charAt(0) == OPERATOR_TOKENS.charAt(2) || token.charAt(0) == OPERATOR_TOKENS.charAt(3) || token.charAt(0) == OPERATOR_TOKENS.charAt(4)) {
+    	else if (token.charAt(0) == OPERATOR_TOKENS.charAt(2) || token.charAt(0) == OPERATOR_TOKENS.charAt(3)) {
     		precedence = 2;
+    	}
+    	else if (token.charAt(0) == OPERATOR_TOKENS.charAt(4)) {
+    		precedence = 3;
     	}
     	return  new TokenImp(token, 2, precedence);   		
     }
     
     public Token parseParenthesis(String token) {
-    	return  new TokenImp(token, 3, 3);
+    	return  new TokenImp(token, 3, 4);
     } 
 
     public Double rpn(TokenList tokens) {
@@ -90,6 +93,7 @@ public class Main implements CalculatorInterface {
         	result = stack.pop();
         }
         else {
+        	out.print(stack.top());
         	out.println("Error in rpn.");
         }
         
@@ -137,7 +141,7 @@ public class Main implements CalculatorInterface {
         /*while (in.hasNextLine()) {
             readTokens(in.nextLine());
         }*/
-    	String test = "3 2 +";
+    	String test = "2 3 +";
     	rpn(readTokens(test));
     }
 
