@@ -133,8 +133,32 @@ public class Main implements CalculatorInterface {
     }
 
     public TokenList shuntingYard(TokenList tokens) {
-        // TODO: Implement this
-        return null;
+    	TokenStack stack = new TokenStackImp();
+    	TokenList result = new TokenListImp();
+    	for (int i = 0; i < tokens.size(); i++) {
+    		if (tokens.get(i).getType() == 1) {
+    			result.add(tokens.get(i));
+    		}
+    		else if(tokens.get(i).getType() == 2) {
+    			while (stack.size() != 0 && stack.top().getPrecedence() >= tokens.get(i).getPrecedence()) {
+    				result.add(stack.pop());
+    			}
+    			stack.push(tokens.get(i));
+    		}
+    		if (tokens.get(i).getType() == 3 && tokens.get(i).getValue().equals("(")) {
+    			stack.push(tokens.get(i));
+    		}
+    		if (tokens.get(i).getType() == 3 && tokens.get(i).getValue().equals(")")) {
+    			while (stack.top().getValue() != "(") {
+    				result.add(stack.pop());
+    			}
+    			stack.pop();
+    		}
+    	}
+    	while (stack.size() != 0) {
+    		result.add(stack.pop());
+    	}
+        return result;
     }
 
     private void start() {
