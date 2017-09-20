@@ -106,19 +106,19 @@ public class Main implements CalculatorInterface {
     	double a = stack.pop();
     	double b = stack.pop();
     	
-    	if (operator.equals("+")) {
+    	if (operator.getValue().equals("+")) {
     		stack.push(b + a);
     	}
-    	else if (operator.equals("-")) {
+    	else if (operator.getValue().equals("-")) {
     		stack.push(b - a);
     	}
-    	else if (operator.equals("*")) {
+    	else if (operator.getValue().equals("*")) {
     		stack.push(b * a);
     	}
-    	else if (operator.equals("/")) {
+    	else if (operator.getValue().equals("/")) {
     		stack.push(b / a);
     	}
-    	else if (operator.equals("^")) {
+    	else if (operator.getValue().equals("^")) {
     		stack.push(power(a,b));
     	}
     }
@@ -141,7 +141,7 @@ public class Main implements CalculatorInterface {
         /*while (in.hasNextLine()) {
             readTokens(in.nextLine());
         }*/
-    	String test = "2 3 +";
+    	String test = "15 7 1 1 + - / 3 * 2 1 1 + + -";
     	rpn(readTokens(test));
     }
 
