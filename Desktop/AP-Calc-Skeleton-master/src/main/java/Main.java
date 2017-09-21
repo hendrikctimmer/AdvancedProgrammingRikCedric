@@ -8,6 +8,13 @@ public class Main implements CalculatorInterface {
     PrintStream out;
     
     static final String OPERATOR_TOKENS = "+-*/^";
+    static final String DIVISION_SIGN = "/";
+    static final String MULTIPLICATION_SIGN = "*";
+    static final String ADDITION_SIGN = "+";
+    static final String SUBTRACTION_SIGN = "-";
+    static final String EXPONENT_SIGN = "^";
+    static final String LEFT_PARENTHESIS = "(";
+    static final String RIGHT_PARENTHESIS = ")";
 
     Main() {
 
@@ -25,7 +32,7 @@ public class Main implements CalculatorInterface {
     }
 
     boolean tokenIsParenthesis(String token) {
-    	return token.equals("(") || token.equals(")");
+    	return token.equals(LEFT_PARENTHESIS) || token.equals(RIGHT_PARENTHESIS);
     }
 
     public TokenList readTokens(String input) {
@@ -47,9 +54,6 @@ public class Main implements CalculatorInterface {
     			out.println("Error in identifying token.");
     		}
         }
-        for (int i = 0; i < result.size(); i++)
-                out.printf("%s ", result.get(i).getValue());
-        out.println();
         
         return result;
     }
@@ -97,7 +101,7 @@ public class Main implements CalculatorInterface {
         	out.println("Error in rpn.");
         }
         
-        out.printf("%.6f ", result);
+        out.printf("%.6f \n", result);
         
         return result;
     }
@@ -106,19 +110,19 @@ public class Main implements CalculatorInterface {
     	double a = stack.pop();
     	double b = stack.pop();
     	
-    	if (operator.getValue().equals("+")) {
+    	if (operator.getValue().equals(ADDITION_SIGN)) {
     		stack.push(b + a);
     	}
-    	else if (operator.getValue().equals("-")) {
+    	else if (operator.getValue().equals(SUBTRACTION_SIGN)) {
     		stack.push(b - a);
     	}
-    	else if (operator.getValue().equals("*")) {
+    	else if (operator.getValue().equals(MULTIPLICATION_SIGN)) {
     		stack.push(b * a);
     	}
-    	else if (operator.getValue().equals("/")) {
+    	else if (operator.getValue().equals(DIVISION_SIGN)) {
     		stack.push(b / a);
     	}
-    	else if (operator.getValue().equals("^")) {
+    	else if (operator.getValue().equals(EXPONENT_SIGN)) {
     		stack.push(power(a,b));
     	}
     }
@@ -147,11 +151,11 @@ public class Main implements CalculatorInterface {
     			}
     			stack.push(tokens.get(i));
     		}
-    		if (tokens.get(i).getType() == 3 && tokens.get(i).getValue().equals("(")) {
+    		if (tokens.get(i).getType() == 3 && tokens.get(i).getValue().equals(LEFT_PARENTHESIS)) {
     			stack.push(tokens.get(i));
     		}
-    		if (tokens.get(i).getType() == 3 && tokens.get(i).getValue().equals(")")) {
-    			while (stack.size() != 0 && stack.top().getValue() != "(" && stack.top().getType() == 2) {
+    		if (tokens.get(i).getType() == 3 && tokens.get(i).getValue().equals(RIGHT_PARENTHESIS)) {
+    			while (stack.size() != 0 && stack.top().getValue() != LEFT_PARENTHESIS && stack.top().getType() == 2) {
     				result.add(stack.pop());
     			}
     			stack.pop();
@@ -164,8 +168,10 @@ public class Main implements CalculatorInterface {
     }
 
     private void start() {
-    	String input = in.nextLine();
-    	rpn(shuntingYard(readTokens(input)));
+        while (in.hasNextLine()) {
+            String input = in.nextLine();
+            rpn(shuntingYard(readTokens(input)));
+        }
     }
 
     public static void main(String[] argv) {

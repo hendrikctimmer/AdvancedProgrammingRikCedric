@@ -4,7 +4,7 @@
 public class TokenStackImp implements TokenStack {
     
 	static final int MAX_NUMBER_OF_ELEMENTS = 1024;
-	Token[] stack;
+	private Token[] stack;
 	int numberOfElements;
 
 	public TokenStackImp() {
