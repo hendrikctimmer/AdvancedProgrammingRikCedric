@@ -192,8 +192,8 @@ public class Main implements CalculatorInterface {
                 "68.000000\n" +
                 "74.320000\n" +
                 "3239.689655";
-    	String test = "( 18 + 55 ) / ( ( 58 ) / ( ( ( 96 ) ) - ( ( ( 70 ) ) ) ) / ( 99 ) )";
-    	rpn(shuntingYard(readTokens(test)));
+    	String input = in.nextLine();
+    	rpn(shuntingYard(readTokens(input)));
     }
 
     public static void main(String[] argv) {
