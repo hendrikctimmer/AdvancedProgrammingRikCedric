@@ -97,7 +97,7 @@ public class Main implements CalculatorInterface {
         	out.println("Error in rpn.");
         }
         
-        out.printf("%s ", result);
+        out.printf("%.6f ", result);
         
         return result;
     }
@@ -133,14 +133,16 @@ public class Main implements CalculatorInterface {
     }
 
     public TokenList shuntingYard(TokenList tokens) {
-    	TokenStack stack = new TokenStackImp();
+
+        TokenStack stack = new TokenStackImp();
     	TokenList result = new TokenListImp();
+
     	for (int i = 0; i < tokens.size(); i++) {
     		if (tokens.get(i).getType() == 1) {
     			result.add(tokens.get(i));
     		}
     		else if(tokens.get(i).getType() == 2) {
-    			while (stack.size() != 0 && stack.top().getPrecedence() >= tokens.get(i).getPrecedence()) {
+    			while (stack.size() != 0 && stack.top().getType() == 2 && stack.top().getPrecedence() >= tokens.get(i).getPrecedence()) {
     				result.add(stack.pop());
     			}
     			stack.push(tokens.get(i));
@@ -149,15 +151,19 @@ public class Main implements CalculatorInterface {
     			stack.push(tokens.get(i));
     		}
     		if (tokens.get(i).getType() == 3 && tokens.get(i).getValue().equals(")")) {
-    			while (stack.top().getValue() != "(") {
+    			while (stack.size() != 0 && stack.top().getValue() != "(" && stack.top().getType() == 2) {
     				result.add(stack.pop());
     			}
     			stack.pop();
     		}
     	}
-    	while (stack.size() != 0) {
-    		result.add(stack.pop());
-    	}
+    	 while (stack.size() != 0 && stack.top().getType() == 2) {
+            result.add(stack.pop());
+            /*for (int i = 0; i < result.size(); i++) {
+                out.printf("%s ", result.get(result.size() - 1).getValue());
+            }
+            out.printf("\n"); */
+        }
         return result;
     }
 
@@ -165,8 +171,29 @@ public class Main implements CalculatorInterface {
         /*while (in.hasNextLine()) {
             readTokens(in.nextLine());
         }*/
-    	String test = "15 7 1 1 + - / 3 * 2 1 1 + + -";
-    	rpn(readTokens(test));
+        String output = "64.000000\n" +
+                "59.000000\n" +
+                "72.000513\n" +
+                "10.000000\n" +
+                "40.000000\n" +
+                "1505.000000\n" +
+                "-  64.472527\n" +
+                "43.370467\n" +
+                "64.000000\n" +
+                "121.000000\n" +
+                "-  158.000000\n" +
+                "1.717608\n" +
+                "-  2.000000\n" +
+                "11.000000\n" +
+                "58.791667\n" +
+                "66.710526\n" +
+                "76.566049\n" +
+                "899539165.000000\n" +
+                "68.000000\n" +
+                "74.320000\n" +
+                "3239.689655";
+    	String test = "( 18 + 55 ) / ( ( 58 ) / ( ( ( 96 ) ) - ( ( ( 70 ) ) ) ) / ( 99 ) )";
+    	rpn(shuntingYard(readTokens(test)));
     }
 
     public static void main(String[] argv) {
