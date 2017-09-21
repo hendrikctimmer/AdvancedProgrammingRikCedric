@@ -159,39 +159,11 @@ public class Main implements CalculatorInterface {
     	}
     	 while (stack.size() != 0 && stack.top().getType() == 2) {
             result.add(stack.pop());
-            /*for (int i = 0; i < result.size(); i++) {
-                out.printf("%s ", result.get(result.size() - 1).getValue());
-            }
-            out.printf("\n"); */
         }
         return result;
     }
 
     private void start() {
-        /*while (in.hasNextLine()) {
-            readTokens(in.nextLine());
-        }*/
-        String output = "64.000000\n" +
-                "59.000000\n" +
-                "72.000513\n" +
-                "10.000000\n" +
-                "40.000000\n" +
-                "1505.000000\n" +
-                "-  64.472527\n" +
-                "43.370467\n" +
-                "64.000000\n" +
-                "121.000000\n" +
-                "-  158.000000\n" +
-                "1.717608\n" +
-                "-  2.000000\n" +
-                "11.000000\n" +
-                "58.791667\n" +
-                "66.710526\n" +
-                "76.566049\n" +
-                "899539165.000000\n" +
-                "68.000000\n" +
-                "74.320000\n" +
-                "3239.689655";
     	String input = in.nextLine();
     	rpn(shuntingYard(readTokens(input)));
     }
