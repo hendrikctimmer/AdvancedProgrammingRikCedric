@@ -17,10 +17,8 @@ public class Main implements CalculatorInterface {
     static final String RIGHT_PARENTHESIS = ")";
 
     Main() {
-
         in = new Scanner(System.in);
         out = new PrintStream(System.out);
-
     }
 
     boolean tokenIsDouble(String token) {
@@ -53,8 +51,7 @@ public class Main implements CalculatorInterface {
     		} else {
     			out.println("Error in identifying token.");
     		}
-        }
-        
+        }       
         return result;
     }
     
@@ -169,8 +166,7 @@ public class Main implements CalculatorInterface {
 
     private void start() {
         while (in.hasNextLine()) {
-            String input = in.nextLine();
-            rpn(shuntingYard(readTokens(input)));
+            rpn(shuntingYard(readTokens(in.nextLine())));
         }
     }
 
